@@ -5,8 +5,25 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
+    <a-button type="primary" @click="handleClick">Hello</a-button>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  methods: {
+    handleClick() {
+      this.$requests
+        ._get('http://ip-api.com/json', { lang: 'zh-CN' })
+        .then(res => {
+          this.$message.success(`您好, 来自 ${res.regionName}省 ${res.city} 的朋友!`);
+          console.log('reqTest: ', res);
+        });
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
